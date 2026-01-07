@@ -22,80 +22,46 @@ void listProducts(const vector<Product>& products) {
 void searchProduct(const vector<Product>& products) {
     clearScreen();
 
+
     string key;
     cout << "Enter product name: ";
     cin >> key;
 
-    cout << left
-         << setw(5)  << "ID"
-         << setw(15) << "Name"
-         << setw(25) << "Description"
-         << setw(10) << "Price"
-         << setw(8)  << "Stock"
-         << endl;
-
-         cout << string(63, '-') << endl;
-         
-         bool found = false;
+    vector<Product> filteredProducts;         
          
          for (const auto& p : products) {
              if (p.getName().find(key) != string::npos) {
-                 cout << left
-                 << setw(5)  << p.getId()
-                 << setw(15) << p.getName()
-                 << setw(25) << p.getDescription()
-                 << setw(10) << fixed << setprecision(2) << p.getPrice()
-                 << setw(8)  << p.getStock()
-                 << endl;
-                 found = true;
+                 filteredProducts.push_back(p);
                 }
             }
+            printProductsTable(filteredProducts);
             
-            if (!found) {
-                cout << "\nNo matching products found.\n";
-            }
+            if (filteredProducts.empty()) {
+        cout << "\nNo matching products found.\n";
+    }
             
-            waitForEnter();
         }
         
 void filterByMax(const vector<Product>& products) {
-            clearScreen();
+        clearScreen();
+
         
             double maxPrice;
             cout << "Enter maximum price: ";
             cin >> maxPrice;
-        
-            cout << left
-                 << setw(5)  << "ID"
-                 << setw(15) << "Name"
-                 << setw(25) << "Description"
-                 << setw(10) << "Price"
-                 << setw(8)  << "Stock"
-                 << endl;
-        
-            cout << string(63, '-') << endl;
-        
-            bool found = false;
+            vector<Product> filteredProducts;         
         
         
             for (const auto& p : products) {
                 if (p.getPrice() <= maxPrice) {
-                    cout << left
-                         << setw(5)  << p.getId()
-                         << setw(15) << p.getName()
-                         << setw(25) << p.getDescription()
-                         << setw(10) << fixed << setprecision(2) << p.getPrice()
-                         << setw(8)  << p.getStock()
-                         << endl;
-        
-                    found = true;
+                    filteredProducts.push_back(p);                    
                 }
             }
-            if (!found) {
-                cout << "\nNo products found within the specified price range.\n";
-            }
+            printProductsTable(filteredProducts);
+               if (filteredProducts.empty()) {
+        cout << "\nNo matching products found.\n";
+    }
         
-            waitForEnter();
         }
 
 
@@ -173,7 +139,8 @@ void CustomerDashboard::show(User* customer, vector<Product>& products) {
         cout << "2. Search Product\n";
         cout << "3. Filter by Max Price\n";
         cout << "4. Filter by Seller\n";
-        cout << "5. Back to Main Menu\n";
+        cout << "5. Order Product\n";
+        cout << "6. Back to Main Menu\n";
         cout << "Choice: ";
         cin >> choice;
 
@@ -190,6 +157,9 @@ void CustomerDashboard::show(User* customer, vector<Product>& products) {
             case 4:
                 filterBySeller(products);
                 break;
+
+            case 5: 
+                break;
         }
-    } while (choice != 5);
+    } while (choice != 6);
 }

@@ -15,7 +15,7 @@
 Menu::Menu(std::vector<User*> users_vector)
     : users(users_vector) 
 {
-    products = ProductUtils::loadProducts();
+    
 }
 
 void Menu::displayMainMenu() {
@@ -51,6 +51,7 @@ void Menu::handleLogin() {
             std::cout << "\nLogin Successful! Welcome, " << u->getName() << std::endl;
             currUser = u;
             if (currUser->getRole() == "Customer") {
+                products = ProductUtils::loadProducts();
                 CustomerDashboard::show(currUser, products);
             } else if (currUser->getRole() == "Seller") {
                 sellerDashboard(currUser->getName());
@@ -67,6 +68,7 @@ void Menu::handleSignUp() {
     users.push_back(newUser);
     currUser = newUser;
     if (currUser->getRole() == "Customer") {
+        products = ProductUtils::loadProducts();
         CustomerDashboard::show(currUser, products);
         return;
     } else if (currUser->getRole() == "Seller") {
