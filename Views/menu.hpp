@@ -6,7 +6,6 @@
 #include "../Models/user.hpp"
 #include "../Models/product.hpp"
 
-
 class Menu {
 public:
     Menu(std::vector<User*> users_vector);
@@ -16,7 +15,7 @@ public:
 private:
     User* currUser=nullptr;
     std::vector<User*> users;
-    vector<Product> products;
+    std::vector<Product> products;
     // Authentication Sub-menus
     void handleLogin();
     void handleSignUp();

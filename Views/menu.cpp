@@ -10,8 +10,7 @@
 #include "../Models/product.hpp"
 
 
-Menu::Menu(std::vector<User*> users_vector): users(users_vector) {}
-Menu::Menu(vector<User*> users_vector)
+Menu::Menu(std::vector<User*> users_vector)
     : users(users_vector) 
 {
     products = ProductUtils::loadProducts();
