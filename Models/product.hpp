@@ -1,12 +1,12 @@
 #ifndef PRODUCT_HPP
 #define PRODUCT_HPP
-
 #include <string>
+
 
 class Product {
 private:
     int productId;
-    int sellerId;              // ✅ owner of the product
+    int sellerId;
     std::string name;
     std::string description;
     double price;
@@ -20,7 +20,7 @@ public:
             double p,
             int s);
 
-    // Getters
+    // getters
     int getId() const;
     int getSellerId() const;
     std::string getName() const;
@@ -28,11 +28,11 @@ public:
     double getPrice() const;
     int getStock() const;
 
-    // Setters / Updaters
-    void setName(const std::string& n);
-    void setDescription(const std::string& d);
-    void updatePrice(double p);
-    void updateStock(int s);
+    // setters (return bool)
+    bool setName(const std::string& n);
+    bool setDescription(const std::string& d);
+    bool updatePrice(double p);
+    bool updateStock(int s);
 };
 
 #endif

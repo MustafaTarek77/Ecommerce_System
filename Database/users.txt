@@ -1,4 +1,0 @@
-1000:mustafa:mustafa@gmail.com:mustafa1:Customer:N/A
-1001:yasser:yasser@hotmail.com:yasser1:Seller:alex
-1002:sherif:sherif@gmail.com:asdf1324:Seller:asdfg
-1003:Ahmed Yasser:ahmedyasser@gmail.com:ahmed123:Customer:asdds
