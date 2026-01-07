@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "../Models/user.hpp"
+#include "../Models/product.hpp"
 
 class Menu {
 public:
@@ -14,12 +15,13 @@ public:
 private:
     User* currUser=nullptr;
     std::vector<User*> users;
+    std::vector<Product> products;
     // Authentication Sub-menus
     void handleLogin();
     void handleSignUp();
     
     // Role-based Dashboards
-    void customerDashboard(std::string name);
+    // void customerDashboard(std::string name);
     void sellerDashboard(std::string name);
 };
 

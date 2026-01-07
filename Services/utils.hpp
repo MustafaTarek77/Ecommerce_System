@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "../Models/user.hpp"
+#include "../Models/product.hpp"
 
 // Static utility class for Regex Validation
 class Validator {
@@ -21,6 +22,10 @@ public:
     static bool authenticateUser(std::string email, std::string pass, std::string& role, std::string& name);
     static int getNextId();
     static void clearUserVector(std::vector<User*>& users);
+};
+class ProductUtils {
+public:
+    static std::vector<Product> loadProducts();
 };
 
 #endif
