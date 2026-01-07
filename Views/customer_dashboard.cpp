@@ -5,7 +5,7 @@ using namespace std;
 
 void listProducts(const vector<Product>& products) {
     for (const auto& p : products) {
-        cout << p.getProductId() << " | "
+        cout << p.getId() << " | "
              << p.getName() << " | "
              << p.getDescription() << " | "
              << p.getPrice() << " | Stock: "

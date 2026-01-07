@@ -4,6 +4,7 @@
 #include <sstream>
 #include <regex>
 
+using namespace std;
 // --- Validator Implementations ---
 
 bool Validator::isValidName(const std::string& name) {
