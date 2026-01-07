@@ -139,8 +139,7 @@ void CustomerDashboard::show(User* customer, vector<Product>& products) {
         cout << "2. Search Product\n";
         cout << "3. Filter by Max Price\n";
         cout << "4. Filter by Seller\n";
-        cout << "5. Order Product\n";
-        cout << "6. Back to Main Menu\n";
+        cout << "5. Back to Main Menu\n";
         cout << "Choice: ";
         cin >> choice;
 
@@ -157,9 +156,6 @@ void CustomerDashboard::show(User* customer, vector<Product>& products) {
             case 4:
                 filterBySeller(products);
                 break;
-
-            case 5: 
-                break;
         }
-    } while (choice != 6);
+    } while (choice != 5);
 }
