@@ -1,10 +1,13 @@
 #include "menu.hpp"
 #include "../Models/user.hpp"
 #include "../Models/seller.hpp"
+#include "../Services/helper.hpp"
+
 #include <iostream>
 #include <vector>
 #include <fstream>
 #include <sstream>
+
 
 Menu::Menu(std::vector<User*> users_vector): users(users_vector) {}
 
@@ -68,30 +71,48 @@ void Menu::customerDashboard(std::string name) {
     // Implementation for customer actions...
     while(1){}
 }
-
 void Menu::sellerDashboard(std::string name) {
-    Seller s(currUser->getUserId(), currUser->getName(), currUser->getEmail(), currUser->getPassword(), currUser->getRole(), currUser->getAddress());
+
+    
+
+    Seller s(currUser->getUserId(), currUser->getName(), currUser->getEmail(),
+             currUser->getPassword(), currUser->getRole(), currUser->getAddress());
+
+    s.loadMyProducts();
     int choice = 0;
+
     while (true) {
+        clearScreen();
         std::cout << "\n--- Seller Dashboard (" << name << ") ---" << std::endl;
         std::cout << "1. Add Product\n2. View My Products\n3. Update Product\n4. Delete Product\n5. Logout" << std::endl;
         std::cout << "Selection: "; std::cin >> choice;
+
         switch (choice) {
             case 1: s.addProduct(); break;
             case 2: s.viewMyProducts(); break;
             case 3: {
-                int pid; std::cout << "Product ID to update: "; std::cin >> pid;
-                if (!s.updateProduct(pid)) std::cout << "Update failed (not found or not your product)." << std::endl;
+                int pid; 
+                std::cout << "Product ID to update: "; std::cin >> pid;
+                if (!s.updateProduct(pid))
+                    std::cout << "Update failed (not found or not your product)." << std::endl;
                 break;
             }
             case 4: {
-                int pid; std::cout << "Product ID to delete: "; std::cin >> pid;
-                if (!s.deleteProduct(pid)) std::cout << "Delete failed (not found or not your product)." << std::endl;
-                else std::cout << "Product removed." << std::endl;
+                int pid; 
+                std::cout << "Product ID to delete: "; std::cin >> pid;
+                if (!s.deleteProduct(pid))
+                    std::cout << "Delete failed (not found or not your product)." << std::endl;
+                else
+                    std::cout << "Product removed." << std::endl;
                 break;
             }
-            case 5: std::cout << "Logging out..." << std::endl; return;
-            default: std::cout << "Invalid choice." << std::endl;
+            case 5: 
+                std::cout << "Logging out..." << std::endl;
+                // Save all in-memory changes on logout
+                s.saveMyProducts();
+                return;
+            default: 
+                std::cout << "Invalid choice." << std::endl;
         }
     }
 }
