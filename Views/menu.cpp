@@ -7,9 +7,16 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include "customer_dashboard.hpp"
+#include "../Services/utils.hpp"
+#include "../Models/product.hpp"
 
 
-Menu::Menu(std::vector<User*> users_vector): users(users_vector) {}
+Menu::Menu(std::vector<User*> users_vector)
+    : users(users_vector) 
+{
+    products = ProductUtils::loadProducts();
+}
 
 void Menu::displayMainMenu() {
     int choice;
@@ -44,10 +51,11 @@ void Menu::handleLogin() {
             std::cout << "\nLogin Successful! Welcome, " << u->getName() << std::endl;
             currUser = u;
             if (currUser->getRole() == "Customer") {
-                customerDashboard(currUser->getName());
+                CustomerDashboard::show(currUser, products);
             } else if (currUser->getRole() == "Seller") {
                 sellerDashboard(currUser->getName());
             }
+                return;
         }
     }
 
@@ -59,18 +67,21 @@ void Menu::handleSignUp() {
     users.push_back(newUser);
     currUser = newUser;
     if (currUser->getRole() == "Customer") {
-        customerDashboard(currUser->getName());
+        CustomerDashboard::show(currUser, products);
+        return;
     } else if (currUser->getRole() == "Seller") {
         sellerDashboard(currUser->getName());
+        return;
     }
 }
 
-void Menu::customerDashboard(std::string name) {
-    std::cout << "\n--- Customer Dashboard (" << name << ") ---" << std::endl;
-    std::cout << "1. View Products\n2. View Cart\n3. Logout" << std::endl;
-    // Implementation for customer actions...
-    while(1){}
-}
+// void Menu::customerDashboard(std::string name) {
+//     std::cout << "\n--- Customer Dashboard (" << name << ") ---" << std::endl;
+//     std::cout << "1. View Products\n2. View Cart\n3. Logout" << std::endl;
+//     // Implementation for customer actions...
+//     while(1){}
+// }
+
 void Menu::sellerDashboard(std::string name) {
 
     

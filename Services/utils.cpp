@@ -4,6 +4,7 @@
 #include <sstream>
 #include <regex>
 
+using namespace std;
 // --- Validator Implementations ---
 
 bool Validator::isValidName(const std::string& name) {
@@ -125,4 +126,46 @@ void AuthService::clearUserVector(std::vector<User*>& users) {
         delete u; // Free the memory allocated with 'new'
     }
     users.clear(); // Remove the now-dangling pointers from the vector
+}
+
+std::vector<Product> ProductUtils::loadProducts() {
+    vector<Product> products;
+    ifstream file("Database/products.txt");
+
+    if (!file.is_open()) {
+        return products;
+    }
+
+    string line;
+    while (getline(file, line)) {
+        if (line.empty()) continue;
+
+        stringstream ss(line);
+        string pid, sid, name, desc, price, stock;
+
+        getline(ss, pid, ':');
+        getline(ss, sid, ':');
+        getline(ss, name, ':');
+        getline(ss, desc, ':');
+        getline(ss, price, ':');
+        getline(ss, stock, ':');
+
+        try {
+            products.push_back(
+                Product(
+                    stoi(pid),
+                    stoi(sid),
+                    name,
+                    desc,
+                    stod(price),
+                    stoi(stock)
+                )
+            );
+        } catch (...) {
+            continue;
+        }
+    }
+
+    file.close();
+    return products;
 }
