@@ -50,16 +50,44 @@ void listProducts(const vector<Product>& products) {
 
 
 void searchProduct(const vector<Product>& products) {
+    clearScreen();
+
     string key;
     cout << "Enter product name: ";
     cin >> key;
 
+    cout << left
+         << setw(5)  << "ID"
+         << setw(15) << "Name"
+         << setw(25) << "Description"
+         << setw(10) << "Price"
+         << setw(8)  << "Stock"
+         << endl;
+
+    cout << string(63, '-') << endl;
+
+    bool found = false;
+
     for (const auto& p : products) {
         if (p.getName().find(key) != string::npos) {
-            cout << p.getName() << " - " << p.getPrice() << endl;
+            cout << left
+                 << setw(5)  << p.getId()
+                 << setw(15) << p.getName()
+                 << setw(25) << p.getDescription()
+                 << setw(10) << fixed << setprecision(2) << p.getPrice()
+                 << setw(8)  << p.getStock()
+                 << endl;
+            found = true;
         }
     }
+
+    if (!found) {
+        cout << "\nNo matching products found.\n";
+    }
+
+    waitForEnter();
 }
+
 
 void CustomerDashboard::show(User* customer, vector<Product>& products) {
     int choice;

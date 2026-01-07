@@ -53,6 +53,7 @@ void Menu::handleLogin() {
             } else if (currUser->getRole() == "Seller") {
                 sellerDashboard(currUser->getName());
             }
+                return;
         }
     }
 
@@ -65,8 +66,10 @@ void Menu::handleSignUp() {
     currUser = newUser;
     if (currUser->getRole() == "Customer") {
         CustomerDashboard::show(currUser, products);
+        return;
     } else if (currUser->getRole() == "Seller") {
         sellerDashboard(currUser->getName());
+        return;
     }
 }
 
