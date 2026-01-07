@@ -84,7 +84,6 @@ void Menu::handleSignUp() {
 
 void Menu::sellerDashboard(std::string name) {
 
-    
 
     Seller s(currUser->getUserId(), currUser->getName(), currUser->getEmail(),
              currUser->getPassword(), currUser->getRole(), currUser->getAddress());
@@ -118,8 +117,7 @@ void Menu::sellerDashboard(std::string name) {
                 break;
             }
             case 5: 
-                std::cout << "Logging out..." << std::endl;
-                // Save all in-memory changes on logout
+                std::cout << "Return Back" << std::endl;
                 s.saveMyProducts();
                 return;
             default: 
