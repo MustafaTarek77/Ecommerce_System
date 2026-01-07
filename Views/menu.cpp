@@ -1,5 +1,6 @@
 #include "menu.hpp"
 #include "../Models/user.hpp"
+#include "../Models/seller.hpp"
 #include <iostream>
 #include <vector>
 #include <fstream>
@@ -69,7 +70,28 @@ void Menu::customerDashboard(std::string name) {
 }
 
 void Menu::sellerDashboard(std::string name) {
-    std::cout << "\n--- Seller Dashboard (" << name << ") ---" << std::endl;
-    std::cout << "1. Add Product\n2. View My Products\n3. Logout" << std::endl;
-    while(1){}
+    Seller s(currUser->getUserId(), currUser->getName(), currUser->getEmail(), currUser->getPassword(), currUser->getRole(), currUser->getAddress());
+    int choice = 0;
+    while (true) {
+        std::cout << "\n--- Seller Dashboard (" << name << ") ---" << std::endl;
+        std::cout << "1. Add Product\n2. View My Products\n3. Update Product\n4. Delete Product\n5. Logout" << std::endl;
+        std::cout << "Selection: "; std::cin >> choice;
+        switch (choice) {
+            case 1: s.addProduct(); break;
+            case 2: s.viewMyProducts(); break;
+            case 3: {
+                int pid; std::cout << "Product ID to update: "; std::cin >> pid;
+                if (!s.updateProduct(pid)) std::cout << "Update failed (not found or not your product)." << std::endl;
+                break;
+            }
+            case 4: {
+                int pid; std::cout << "Product ID to delete: "; std::cin >> pid;
+                if (!s.deleteProduct(pid)) std::cout << "Delete failed (not found or not your product)." << std::endl;
+                else std::cout << "Product removed." << std::endl;
+                break;
+            }
+            case 5: std::cout << "Logging out..." << std::endl; return;
+            default: std::cout << "Invalid choice." << std::endl;
+        }
+    }
 }
