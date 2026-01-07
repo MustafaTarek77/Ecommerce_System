@@ -46,6 +46,45 @@ void listProducts(const vector<Product>& products) {
     waitForEnter();
 }
 
+void filterByMax(const vector<Product>& products) {
+    clearScreen();
+
+    double maxPrice;
+    cout << "Enter maximum price: ";
+    cin >> maxPrice;
+
+    cout << left
+         << setw(5)  << "ID"
+         << setw(15) << "Name"
+         << setw(25) << "Description"
+         << setw(10) << "Price"
+         << setw(8)  << "Stock"
+         << endl;
+
+    cout << string(63, '-') << endl;
+
+    bool found = false;
+
+
+    for (const auto& p : products) {
+        if (p.getPrice() <= maxPrice) {
+            cout << left
+                 << setw(5)  << p.getId()
+                 << setw(15) << p.getName()
+                 << setw(25) << p.getDescription()
+                 << setw(10) << fixed << setprecision(2) << p.getPrice()
+                 << setw(8)  << p.getStock()
+                 << endl;
+
+            found = true;
+        }
+    }
+    if (!found) {
+        cout << "\nNo products found within the specified price range.\n";
+    }
+
+    waitForEnter();
+}
 
 
 
@@ -100,7 +139,9 @@ void CustomerDashboard::show(User* customer, vector<Product>& products) {
         cout << "Welcome " << customer->getName() << endl;
         cout << "\n1. View Products\n";
         cout << "2. Search Product\n";
-        cout << "3. Back to Main Menu\n";
+        cout << "3. Filter by max price\n";
+        cout << "4. Filter by seller\n";
+        cout << "5. Back to Main Menu\n";
         cout << "Choice: ";
         cin >> choice;
 
@@ -111,6 +152,12 @@ void CustomerDashboard::show(User* customer, vector<Product>& products) {
             case 2:
                 searchProduct(products);
                 break;
+            case 3:
+                // Implement filter by max price
+                break;
+            case 4:
+                // Implement filter by seller
+                break;
         }
-    } while (choice != 3);
+    } while (choice != 5);
 }
